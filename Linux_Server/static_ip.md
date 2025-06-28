@@ -14,6 +14,13 @@ GATEWAY=192.168.1.1
 DNS1=8.8.8.8
 DNS2=8.8.4.4
 
+## Restart the network service
+
+sudo systemctl restart NetworkManager
+(or)
+sudo ifdown ens160
+sudo ifup ens160
+
 
 
 ## Description
