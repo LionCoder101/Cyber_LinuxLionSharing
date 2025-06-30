@@ -3,8 +3,7 @@ show
 
 
 ## To assign a static IP address to your firewall, follow these steps:
-
-    
+   
 config system interface
 edit port1
 set mode static 
