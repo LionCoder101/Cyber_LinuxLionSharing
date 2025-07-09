@@ -19,7 +19,9 @@ Switch to Switch  - Trunk Port
 
 show running-config             -  Default configuration  
 show arp                        -  ဘယ် ip မှာ ဘယ် mac-address ရှိ
-show mac-address table          -  ဘယ် port မှာ ဘယ် mac-address ရှိလဲ
+# show mac-address table          -  ဘယ် port မှာ ဘယ် mac-address ရှိလဲ 
+# (ping မှာ port နဲ့ mac address ကို တွေ့ရတာ)
+
 show version
 show ip int brief               -  ဘယ် port တွေ down နေလဲ၊ up နေလဲ၊ ကြည်တာ 
 
@@ -48,3 +50,48 @@ en
 conf t
 no vlan 10
 no vlan 20
+
+-----------------------
+
+Switch တည်းကို ဝင် 
+
+en 
+conf t
+int range fa 0/1-2
+switchport mode access
+switchport access vlan 10
+do show vlan
+exit
+----------------------------
+
+int range fa 0/3-4
+int range fa 0/3-4
+switchport mode access
+switchport access vlan 20
+do show vlan
+exit
+----------------------------
+
+## Router မှာ Trunk mode ကြော်ငြာ ပေးရမယ်
+
+Router နဲ့ ချိတ်ထားတဲ့ switch port မှာ trunk mode ကြော်ငြာပေးရမယ်
+In the swith >>>
+                en
+                conf t
+                int fa 0/5
+                switchport mode trunk
+                exit
+
+## Router
+
+en
+conf t
+int g 0/0.10
+encapsulation dot1Q 10
+ip addr 192.168.1.100    <<< vlan 10 ရယ် gateway
+
+exit
+
+int g 0/0.20
+encapsulation dot1Q 10
+ip addr 192.168.2.100
