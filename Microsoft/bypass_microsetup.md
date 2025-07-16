@@ -14,3 +14,19 @@ net user Administrator /active:yes
 
 net user Administrator *
 
+## Extension
+
+File Explore Options
+
+## Mail attached Virus
+
+McAfee.exe >>> McAfee.doc
+select RAR4
+Compression method --> Best
+                    >> Create solid archive
+                    >> Lock Archive
+
+Advanced >>> Compression  >>> Text(Force)
+                              Audio(Force)
+
+Set Password >>> xxxxxx

@@ -24,6 +24,7 @@ show arp                        -  ဘယ် ip မှာ ဘယ် mac-address 
 
 show version
 show ip int brief               -  ဘယ် port တွေ down နေလဲ၊ up နေလဲ၊ ကြည်တာ 
+show int fa 0/5 switchport      - fa 0/5 ရယ် switchport ကို ကြည်တာ    
 
 ## Vlan create နည်း
 
@@ -64,7 +65,7 @@ do show vlan
 exit
 ----------------------------
 
-int range fa 0/3-4
+conf t
 int range fa 0/3-4
 switchport mode access
 switchport access vlan 20
@@ -75,12 +76,15 @@ exit
 ## Router မှာ Trunk mode ကြော်ငြာ ပေးရမယ်
 
 Router နဲ့ ချိတ်ထားတဲ့ switch port မှာ trunk mode ကြော်ငြာပေးရမယ်
-In the swith >>>
+# In the swith >>>
                 en
                 conf t
                 int fa 0/5
                 switchport mode trunk
                 exit
+
+
+show int trunk
 
 ## Router
 
