@@ -56,13 +56,13 @@ no vlan 20
 
 Switch တည်းကို ဝင် 
 
-en 
-conf t
-int range fa 0/1-2
-switchport mode access
-switchport access vlan 10
-do show vlan
-exit
+            en 
+            conf t
+            int range fa 0/1-2
+            switchport mode access
+            switchport access vlan 10
+            do show vlan
+            exit
 ----------------------------
 
 conf t
