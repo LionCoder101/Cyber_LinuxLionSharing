@@ -12,6 +12,8 @@ Open cmd as admin
 
 net user Administrator /active:yes
 
+net localgroup Administrators Username /add
+
 net user Administrator *
 
 ## Extension
