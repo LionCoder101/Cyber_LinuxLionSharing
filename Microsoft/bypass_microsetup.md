@@ -16,6 +16,13 @@ net localgroup Administrators Username /add
 
 net user Administrator *
 
+net user username password /add
+
+net user username /delete
+
+net start servicename
+net stop servicename
+
 ## Extension
 
 File Explore Options
