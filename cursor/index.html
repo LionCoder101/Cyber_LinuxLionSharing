@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWS & Terraform Roadmap | Cyber Linux Lion Sharing</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">☁️ AWS + Terraform Roadmap</div>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#aws-roadmap">AWS Roadmap</a></li>
+        <li><a href="#terraform-roadmap">Terraform Roadmap</a></li>
+        <li><a href="#exam-fees">Exam Fees</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <h1>
+        <span class="aws">AWS</span> &amp; <span class="tf">Terraform</span><br />
+        Step-by-Step Learning Roadmap
+      </h1>
+      <p>
+        A complete guide from beginner to professional — cloud fundamentals,
+        infrastructure as code, certifications, and real-world projects.
+      </p>
+
+      <div class="hero-images">
+        <figure class="hero-card aws-card">
+          <img src="images/aws-infrastructure.png" alt="AWS Cloud Infrastructure — VPC, EC2, S3, RDS, Load Balancer" />
+          <figcaption>AWS Cloud Infrastructure</figcaption>
+        </figure>
+        <figure class="hero-card tf-card">
+          <img src="images/terraform-workflow.png" alt="Terraform Infrastructure as Code Workflow — Plan, Apply, Provision" />
+          <figcaption>Terraform IaC Workflow</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Overview -->
+    <section id="overview">
+      <h2 class="section-title">Learning Overview</h2>
+      <p class="section-subtitle">Estimated timeline for each track</p>
+
+      <div class="overview-cards">
+        <div class="overview-card aws-overview">
+          <div class="duration">3–6 mo</div>
+          <div class="label">AWS Associate Level</div>
+        </div>
+        <div class="overview-card aws-overview">
+          <div class="duration">6–12 mo</div>
+          <div class="label">AWS Professional Level</div>
+        </div>
+        <div class="overview-card tf-overview">
+          <div class="duration">1–2 mo</div>
+          <div class="label">Terraform Fundamentals</div>
+        </div>
+        <div class="overview-card tf-overview">
+          <div class="duration">2–4 mo</div>
+          <div class="label">Terraform + AWS Production</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AWS Roadmap -->
+    <section id="aws-roadmap">
+      <h2 class="section-title">AWS Roadmap — Step by Step</h2>
+      <p class="section-subtitle">From cloud basics to Solutions Architect Professional</p>
+
+      <div class="roadmap aws-roadmap">
+
+        <div class="roadmap-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Cloud Fundamentals</h3>
+            <p>Understand what cloud computing is — IaaS, PaaS, SaaS models, shared responsibility model, and AWS global infrastructure (Regions, Availability Zones, Edge Locations).</p>
+            <div class="step-tags">
+              <span class="tag">Cloud Concepts</span>
+              <span class="tag">Regions &amp; AZs</span>
+              <span class="tag">Shared Responsibility</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>IAM — Identity &amp; Access Management</h3>
+            <p>Learn users, groups, roles, policies, MFA, and least-privilege access. IAM is the foundation of AWS security — master it before anything else.</p>
+            <div class="step-tags">
+              <span class="tag">Users &amp; Roles</span>
+              <span class="tag">Policies</span>
+              <span class="tag">MFA</span>
+              <span class="tag">STS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Compute — EC2, Lambda, ECS</h3>
+            <p>Launch virtual servers (EC2), run serverless functions (Lambda), and containerize apps with ECS/EKS. Understand instance types, AMIs, Auto Scaling, and Load Balancers.</p>
+            <div class="step-tags">
+              <span class="tag">EC2</span>
+              <span class="tag">Lambda</span>
+              <span class="tag">ECS / EKS</span>
+              <span class="tag">ALB / NLB</span>
+              <span class="tag cert">Exam: Cloud Practitioner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Storage — S3, EBS, EFS</h3>
+            <p>Object storage with S3 (buckets, versioning, lifecycle), block storage with EBS, and shared file storage with EFS. Learn storage classes and Glacier for archiving.</p>
+            <div class="step-tags">
+              <span class="tag">S3</span>
+              <span class="tag">EBS</span>
+              <span class="tag">EFS</span>
+              <span class="tag">Glacier</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Networking — VPC, Route 53, CloudFront</h3>
+            <p>Build isolated networks with VPC (subnets, route tables, NAT Gateway, Internet Gateway). Use Route 53 for DNS and CloudFront as a CDN.</p>
+            <div class="step-tags">
+              <span class="tag">VPC</span>
+              <span class="tag">Subnets</span>
+              <span class="tag">Route 53</span>
+              <span class="tag">CloudFront</span>
+              <span class="tag">Security Groups</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <h3>Databases — RDS, DynamoDB, Aurora</h3>
+            <p>Managed relational databases (RDS/Aurora), NoSQL with DynamoDB, caching with ElastiCache. Understand Multi-AZ, read replicas, and backup strategies.</p>
+            <div class="step-tags">
+              <span class="tag">RDS</span>
+              <span class="tag">DynamoDB</span>
+              <span class="tag">Aurora</span>
+              <span class="tag">ElastiCache</span>
+              <span class="tag cert">Exam: Solutions Architect Associate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">7</div>
+          <div class="step-content">
+            <h3>Security, Monitoring &amp; Compliance</h3>
+            <p>CloudWatch for monitoring, CloudTrail for auditing, AWS Config for compliance, KMS for encryption, WAF &amp; Shield for protection, and Secrets Manager.</p>
+            <div class="step-tags">
+              <span class="tag">CloudWatch</span>
+              <span class="tag">CloudTrail</span>
+              <span class="tag">KMS</span>
+              <span class="tag">WAF</span>
+              <span class="tag cert">Exam: Security Specialty</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">8</div>
+          <div class="step-content">
+            <h3>Advanced Architecture &amp; Professional</h3>
+            <p>Design multi-tier, highly available, fault-tolerant systems. Master Well-Architected Framework pillars: Operational Excellence, Security, Reliability, Performance, Cost Optimization.</p>
+            <div class="step-tags">
+              <span class="tag">Well-Architected</span>
+              <span class="tag">Multi-Region</span>
+              <span class="tag">Disaster Recovery</span>
+              <span class="tag cert">Exam: Solutions Architect Professional</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Terraform Roadmap -->
+    <section id="terraform-roadmap">
+      <h2 class="section-title">Terraform Roadmap — Step by Step</h2>
+      <p class="section-subtitle">Infrastructure as Code from zero to production-ready</p>
+
+      <div class="roadmap tf-roadmap">
+
+        <div class="roadmap-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>What is Infrastructure as Code (IaC)?</h3>
+            <p>Understand why IaC matters — version control for infrastructure, reproducibility, automation, and drift detection. Compare Terraform vs CloudFormation vs Pulumi.</p>
+            <div class="step-tags">
+              <span class="tag">IaC Concepts</span>
+              <span class="tag">Declarative vs Imperative</span>
+              <span class="tag">Idempotency</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Install &amp; Setup Terraform</h3>
+            <p>Install Terraform CLI, configure AWS credentials (aws configure or environment variables), and understand the provider/plugin architecture.</p>
+            <div class="step-tags">
+              <span class="tag">terraform init</span>
+              <span class="tag">Providers</span>
+              <span class="tag">AWS Credentials</span>
+              <span class="tag">HCL Syntax</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Core Workflow — init, plan, apply, destroy</h3>
+            <p>Master the Terraform lifecycle: write .tf files → terraform init → terraform plan (preview changes) → terraform apply (provision) → terraform destroy (cleanup).</p>
+            <div class="step-tags">
+              <span class="tag">terraform init</span>
+              <span class="tag">terraform plan</span>
+              <span class="tag">terraform apply</span>
+              <span class="tag">terraform destroy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Resources, Variables &amp; Outputs</h3>
+            <p>Define AWS resources (EC2, S3, VPC), use input variables for flexibility, and output values for sharing data between modules or displaying endpoints.</p>
+            <div class="step-tags">
+              <span class="tag">resource</span>
+              <span class="tag">variable</span>
+              <span class="tag">output</span>
+              <span class="tag">data sources</span>
+              <span class="tag cert">Exam: Terraform Associate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>State Management</h3>
+            <p>Understand terraform.tfstate — local vs remote state (S3 + DynamoDB locking). Learn state import, state mv, and why remote state is critical for teams.</p>
+            <div class="step-tags">
+              <span class="tag">Local State</span>
+              <span class="tag">S3 Backend</span>
+              <span class="tag">DynamoDB Locking</span>
+              <span class="tag">terraform import</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <h3>Modules — Reusable Infrastructure</h3>
+            <p>Create modules to package reusable infrastructure components. Use public modules from Terraform Registry (VPC module, EKS module) and write your own.</p>
+            <div class="step-tags">
+              <span class="tag">Module Structure</span>
+              <span class="tag">Terraform Registry</span>
+              <span class="tag">module source</span>
+              <span class="tag">versioning</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">7</div>
+          <div class="step-content">
+            <h3>Provision AWS Infrastructure</h3>
+            <p>Build a full AWS stack with Terraform: VPC → Subnets → EC2 → RDS → ALB → S3. Use count, for_each, and depends_on for complex deployments.</p>
+            <div class="step-tags">
+              <span class="tag">VPC Module</span>
+              <span class="tag">EC2</span>
+              <span class="tag">RDS</span>
+              <span class="tag">ALB</span>
+              <span class="tag">count / for_each</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="step-number">8</div>
+          <div class="step-content">
+            <h3>CI/CD &amp; Production Best Practices</h3>
+            <p>Integrate Terraform with GitHub Actions or GitLab CI. Use workspaces, policy as code (Sentinel/OPA), terraform fmt/validate in pipelines, and drift detection.</p>
+            <div class="step-tags">
+              <span class="tag">GitHub Actions</span>
+              <span class="tag">Workspaces</span>
+              <span class="tag">Policy as Code</span>
+              <span class="tag">Drift Detection</span>
+              <span class="tag cert">Exam: Terraform Professional (HashiCorp)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Exam Fees -->
+    <section id="exam-fees">
+      <h2 class="section-title">Certification Exam Fees</h2>
+      <p class="section-subtitle">Official exam pricing (USD) — updated 2025/2026</p>
+
+      <div class="exam-grid">
+
+        <div class="exam-card aws-exam">
+          <div class="exam-card-header">AWS Certification Exams</div>
+          <table class="exam-table">
+            <thead>
+              <tr>
+                <th>Certification</th>
+                <th>Level</th>
+                <th>Fee (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cloud Practitioner (CLF-C02)</td>
+                <td><span class="level-badge level-foundational">Foundational</span></td>
+                <td class="fee">$100</td>
+              </tr>
+              <tr>
+                <td>Solutions Architect – Associate (SAA-C03)</td>
+                <td><span class="level-badge level-associate">Associate</span></td>
+                <td class="fee">$150</td>
+              </tr>
+              <tr>
+                <td>Developer – Associate (DVA-C02)</td>
+                <td><span class="level-badge level-associate">Associate</span></td>
+                <td class="fee">$150</td>
+              </tr>
+              <tr>
+                <td>SysOps Administrator – Associate (SOA-C02)</td>
+                <td><span class="level-badge level-associate">Associate</span></td>
+                <td class="fee">$150</td>
+              </tr>
+              <tr>
+                <td>Data Engineer – Associate (DEA-C01)</td>
+                <td><span class="level-badge level-associate">Associate</span></td>
+                <td class="fee">$150</td>
+              </tr>
+              <tr>
+                <td>Solutions Architect – Professional (SAP-C02)</td>
+                <td><span class="level-badge level-professional">Professional</span></td>
+                <td class="fee">$300</td>
+              </tr>
+              <tr>
+                <td>DevOps Engineer – Professional (DOP-C02)</td>
+                <td><span class="level-badge level-professional">Professional</span></td>
+                <td class="fee">$300</td>
+              </tr>
+              <tr>
+                <td>Security – Specialty (SCS-C02)</td>
+                <td><span class="level-badge level-specialty">Specialty</span></td>
+                <td class="fee">$300</td>
+              </tr>
+              <tr>
+                <td>Machine Learning – Specialty (MLS-C01)</td>
+                <td><span class="level-badge level-specialty">Specialty</span></td>
+                <td class="fee">$300</td>
+              </tr>
+              <tr>
+                <td>Advanced Networking – Specialty (ANS-C01)</td>
+                <td><span class="level-badge level-specialty">Specialty</span></td>
+                <td class="fee">$300</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="exam-card tf-exam">
+          <div class="exam-card-header">HashiCorp Terraform Exams</div>
+          <table class="exam-table">
+            <thead>
+              <tr>
+                <th>Certification</th>
+                <th>Level</th>
+                <th>Fee (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Terraform Associate (003)</td>
+                <td><span class="level-badge level-associate">Associate</span></td>
+                <td class="fee">$70.50</td>
+              </tr>
+              <tr>
+                <td>Terraform Authoring &amp; Operations Professional</td>
+                <td><span class="level-badge level-professional">Professional</span></td>
+                <td class="fee">~$199</td>
+              </tr>
+              <tr>
+                <td>Vault Associate</td>
+                <td><span class="level-badge level-associate">Associate</span></td>
+                <td class="fee">$70.50</td>
+              </tr>
+              <tr>
+                <td>Vault Operations Professional</td>
+                <td><span class="level-badge level-professional">Professional</span></td>
+                <td class="fee">~$199</td>
+              </tr>
+              <tr>
+                <td>Consul Associate</td>
+                <td><span class="level-badge level-associate">Associate</span></td>
+                <td class="fee">$70.50</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div class="exam-note">
+        <strong>Note:</strong> AWS exam fees may vary by country. Retake fee is the same as the original exam fee.
+        AWS sometimes offers 50% discount vouchers after completing certain training.
+        HashiCorp exams are administered via Prometric or online proctored.
+        Visit <a href="https://aws.amazon.com/certification/" target="_blank">aws.amazon.com/certification</a>
+        and <a href="https://www.hashicorp.com/certification" target="_blank">hashicorp.com/certification</a> for the latest pricing.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Cyber Linux Lion Sharing &mdash; AWS &amp; Terraform Roadmap &copy; 2026</p>
+    <p>Built with Cursor AI &bull; <a href="https://aws.amazon.com" target="_blank">AWS</a> &bull; <a href="https://terraform.io" target="_blank">Terraform</a></p>
+  </footer>
+
+</body>
+</html>
