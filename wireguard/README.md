@@ -1,212 +1,90 @@
-# WireGuard Standard User Configuration (`WGconfig.cmd`)
+# PC Setup Script (`wire_script.cmd`)
 
-Admin မဟုတ်တဲ့ Standard User တွေ WireGuard VPN tunnel ကို **ဖွင့်/ပိတ်** လုပ်လို့ရအောင် Windows ကို configure လုပ်ပေးတဲ့ script ဖြစ်ပါတယ်။
+Windows PC အသစ်ကို setup လုပ်ပေးတဲ့ script ဖြစ်ပါတယ်။ Computer name ပြောင်းတာ၊ app တွေ install လုပ်တာ၊ Japanese / Myanmar language ထည့်တာတွေ လုပ်ပေးပါတယ်။ User တစ်ယောက် (local / AD / **Entra ID** user) က WireGuard ကို **feature အစုံ** (tunnel ထည့်၊ ပြင်၊ ဖျက်၊ import/export) နဲ့ သုံးလို့ရအောင်လည်း setup လုပ်ပေးပါတယ်။
 
 ## Script က ဘာတွေလုပ်ပေးလဲ
 
-1. Administrator အနေနဲ့ run ထားလား စစ်ပါတယ်။
-2. WireGuard install ထားလား စစ်ပါတယ်။
-3. Registry မှာ `HKLM\SOFTWARE\WireGuard\LimitedOperatorUI = 1` ကို သတ်မှတ်ပါတယ်။
-4. လက်ရှိ login ဝင်ထားတဲ့ user ကို ရှာပြီး ပြပါတယ်။
-5. **Network Configuration Operators** group ထဲမှာ ဘယ်သူတွေ ပါလဲ ပြပါတယ်။ (group ထဲ user ကို ထည့်မပေးပါ)
-6. Public Desktop မှာ `WireGuard.lnk` shortcut ဖန်တီးပါတယ်။
-7. Registry value ကို ပြန်စစ်ပါတယ်။
+1. **Admin rights တောင်းခြင်း:** Admin အနေနဲ့ run မထားရင် UAC prompt ပေါ်စေပြီး admin အနေနဲ့ ပြန် run ပါတယ်။
+2. **Computer name ပြောင်းခြင်း:** Terminal မှာ name အသစ်ကို မေးပါတယ်။ Enter ပဲ နှိပ်ရင် မပြောင်းပါဘူး။ (စည်းကမ်း: စာလုံး ၁၅ လုံးအထိ၊ အင်္ဂလိပ်စာ / ဂဏန်း / `-` သာ၊ ဂဏန်းချည်းပဲ မရ)။ AD domain စက်ဆိုရင် domain account password ကိုပါ မေးပါတယ်။ Restart ပြီးမှ name အသစ် အသက်ဝင်ပါတယ်။
+3. **App တွေ install လုပ်ခြင်း (စက်ထဲမှာ မရှိမှပဲ သွင်းပါတယ်။ ရှိရင် ကျော်ပါတယ်):**
 
----
+   | App | Install နည်း |
+   |---|---|
+   | Google Chrome | Google ရဲ့ official Enterprise MSI (signature စစ်ပြီးမှ သွင်းပါတယ်) |
+   | 7-Zip | winget (`7zip.7zip`) |
+   | Microsoft Teams | Microsoft ရဲ့ official Teams bootstrapper (`-p` နဲ့ user အားလုံးအတွက်) |
+   | Foxit PDF Reader | winget (`Foxit.FoxitReader`) |
+   | **Office (ရွေးရပါတယ်)** | Script အစမှာ `1 = WPS Office`၊ `2 = Microsoft 365`၊ `3 = None` ထဲက ရွေးခိုင်းပါတယ် |
+   | └ WPS Office | winget (`Kingsoft.WPSOffice`) |
+   | └ Microsoft 365 | Microsoft ရဲ့ official Office Deployment Tool (64-bit, Current channel, Windows language အတိုင်း)။ Word, Excel, PowerPoint, Outlook, OneNote ပါပါတယ်။ Download က 3 GB လောက် ရှိပါတယ် |
 
-## ⚠️ Known Issue — အသုံးမပြုခင် ပြင်ရန်
-
-Line 5 မှာ `IndexOf` ကို သုံးထားလို့ script က **parse error တက်ပြီး ဘာမှ မလုပ်ဘဲ ပြီးသွားပါတယ်**။
-
-**အကြောင်းရင်း:** `#PSCODE#` ဆိုတဲ့ marker စာသားက file ထဲမှာ နှစ်နေရာ ပါနေပါတယ်။ တစ်ခုက line 5 ထဲက `$marker = '#PSCODE#'` ဖြစ်ပြီး နောက်တစ်ခုက line 11 ပါ။ `IndexOf` က ပထမဆုံးတွေ့တဲ့ line 5 ကို ယူသွားလို့ code ကို မှားတဲ့နေရာကနေ ဖြတ်ယူမိပါတယ်။
-
-**ပြင်နည်း:** Line 5 မှာ `IndexOf` ကို `LastIndexOf` လို့ ပြောင်းပါ။
-
-```powershell
-$idx = $raw.LastIndexOf($marker);
-```
-
----
+4. **Japanese / Myanmar language:**
+   - Japanese language (typing, fonts) ကို Windows Update ကနေ install လုပ်ပါတယ်။ (မိနစ်အနည်းငယ် ကြာနိုင်ပါတယ်)
+   - Japanese supplemental fonts ကို ထည့်ပါတယ်။ Myanmar font (**Myanmar Text**) က Windows မှာ ပါပြီးသားမို့ ရှိမရှိပဲ စစ်ပါတယ်။
+   - User တိုင်း sign in ဝင်တဲ့အခါ **Japanese + Myanmar keyboard** ကို အလိုအလျောက် ထည့်ပေးတဲ့ task တစ်ခု ဖန်တီးပါတယ်။ (Keyboard က user တစ်ယောက်ချင်းစီရဲ့ setting ဖြစ်လို့ပါ)
+5. **WireGuard ကို အသစ်ပြန် install လုပ်ခြင်း:**
+   - Official site ကနေ နောက်ဆုံး version ကို **အရင် download** လုပ်ပြီး digital signature (WireGuard LLC) ကို စစ်ပါတယ်။ Download မရရင် ရှိပြီးသား WireGuard ကို မဖျက်ဘဲ ဆက်သုံးပါတယ်။
+   - ရှိပြီးသား tunnel config တွေကို `C:\ProgramData\WireGuard-Backup\<date-time>` ထဲ backup လုပ်ပါတယ်။
+   - ရှိပြီးသား WireGuard ကို uninstall လုပ်ပြီး အသစ်ကို silent install လုပ်ပါတယ်။ ပြီးရင် tunnel config တွေကို ပြန်ထည့်ပေးပါတယ်။
+6. **စက်အမျိုးအစား စစ်ခြင်း:** Entra ID joined / Hybrid / AD Domain / Workgroup ထဲက ဘယ်ဟာလဲ ပြပါတယ်။
+7. **Login user ကို ရှာခြင်း:** Script ကို run နေတဲ့ desktop session မှာ login ဝင်ထားတဲ့ user ကို ရှာပါတယ်။ (Admin password နဲ့ run ရင်တောင် admin account ကို မဟုတ်ဘဲ screen ပေါ်က user ကို ရှာပါတယ်)
+8. **User ကို local Administrators group ထဲ ထည့်ခြင်း:** User ကို name အစား SID နဲ့ ထည့်တာမို့ local၊ AD နဲ့ Entra ID user တွေ အားလုံးမှာ အလုပ်လုပ်ပါတယ်။
+9. **Tray icon ပြခြင်း:** Windows 11 မှာ WireGuard tray icon ကို အမြဲ ပေါ်နေအောင် လုပ်ပါတယ်။
+10. **Restart:** 60 စက္ကန့်အကြာမှာ Windows ကို အလိုအလျောက် restart လုပ်ပါတယ်။ (ရပ်ချင်ရင် CMD မှာ `shutdown /a`)
 
 ## ကြိုတင်လိုအပ်ချက်
 
-- Windows 10 / 11
-- [WireGuard for Windows](https://www.wireguard.com/install/) ကို `C:\Program Files\WireGuard\` ထဲမှာ install လုပ်ထားရပါမယ်။
-- Administrator အခွင့်အရေး ရှိရပါမယ်။
+- Windows 10 / 11 (Entra join ရှိရှိ မရှိရှိ ရပါတယ်)
+- Internet
+- Administrator account ရဲ့ username / password
 
 ## Run နည်း
 
-### နည်း ၁ — Double-click နဲ့ run နည်း
+1. WireGuard သုံးမယ့် **user account နဲ့ login ဝင်ပါ**။
+2. Script ကို local disk (ဥပမာ Desktop) ပေါ် copy ကူးပါ။ (Network drive `Z:\` ပေါ်ကနေ run ရင် admin session က အဲဒီ drive ကို မမြင်ရတတ်ပါဘူး)
+3. `wire_script.cmd` ကို **double-click** နှိပ်ပါ။ (ဒါမှမဟုတ် right-click → **Run as administrator**)
+4. UAC window မှာ **admin username / password** ရိုက်ထည့်ပါ။
+5. Terminal က **computer name အသစ်** မေးရင် ရိုက်ထည့်ပြီး Enter နှိပ်ပါ။ (မပြောင်းချင်ရင် Enter ပဲ နှိပ်ပါ) ပြီးရင် **Office** ကို ရွေးခိုင်းပါမယ်: `1` (WPS)၊ `2` (Microsoft 365)၊ `3` (မသွင်း)။ ဒီနောက်ပိုင်း အဆင့်တွေက ဘာမှ ထပ်မမေးဘဲ သူ့ဘာသာ ဆက်လုပ်သွားပါတယ်။ App တွေ၊ language တွေ download လုပ်ရလို့ အချိန်တော်တော် ကြာနိုင်ပါတယ်။
+6. Script ပြီးရင် Windows က 60 စက္ကန့်အကြာမှာ အလိုအလျောက် restart လုပ်ပါမယ်။
+7. Restart ပြီးရင် user က WireGuard ကို **feature အစုံ** နဲ့ သုံးလို့ရပါပြီ။ Tray icon ဒါမှမဟုတ် Start menu ကနေ ဖွင့်ပါ။ Windows က permission မေးရင် **Yes** နှိပ်ပါ။
 
-`WGconfig.cmd` ကို right-click နှိပ်ပြီး **Run as administrator** ကို ရွေးပါ။
+> ⚠️ **လုံခြုံရေး သတိပေးချက်:** User ကို Administrators group ထဲ ထည့်လိုက်တာမို့ user က WireGuard အပြင် **စက်တစ်လုံးလုံးကို admin အနေနဲ့ ထိန်းချုပ်နိုင်သွားပါမယ်** (software install/uninstall၊ setting ပြောင်းတာ စသည်)။
 
-### နည်း ၂ — CMD ကနေ run နည်း
-
-1. Start menu မှာ `cmd` လို့ ရိုက်ပြီး **Run as administrator** ဖြင့် ဖွင့်ပါ။
-2. Script ရှိတဲ့ folder ကို သွားပြီး run ပါ။
-
-```cmd
-cd /d "<path-to>\wireguard"
-WGconfig.cmd
-```
-
-### Run ပြီးရင် လုပ်ရမယ့်အချက်များ
-
-1. Standard user ကို **Network Configuration Operators** group ထဲ ထည့်ပါ။ (script က ဒါကို လုပ်မပေးပါ)
-
-   ```cmd
-   net localgroup "Network Configuration Operators" "DOMAIN\username" /add
-   ```
-
-2. Windows ကို restart လုပ်ပါ။ ဒါမှမဟုတ် sign out ပြီး ပြန် sign in ဝင်ပါ။
-
-> 📌 `LimitedOperatorUI` က **Network Configuration Operators group ထဲမှာ ပါတဲ့ user တွေအတွက်ပဲ** သက်ရောက်ပါတယ်။ Group ထဲ မပါတဲ့ user ကတော့ WireGuard UI ကို သုံးလို့ မရပါဘူး။
-
----
-
-## Code ရှင်းလင်းချက်
-
-ဒီ file က **CMD + PowerShell hybrid** (file တစ်ခုတည်းထဲမှာ ဘာသာစကား နှစ်မျိုး ပေါင်းရေးထားတာ) ဖြစ်ပါတယ်။ `#PSCODE#` marker အပေါ်ပိုင်းကို CMD က run ပြီး အောက်ပိုင်းကို PowerShell က run ပါတယ်။
-
-### အပိုင်း ၁ — CMD ပိုင်း (line 1–9)
-
-| Line | Code | အဓိပ္ပာယ် |
-|---|---|---|
-| 1 | `@echo off` | Command တွေကို screen ပေါ်မှာ ထပ်မပြစေဖို့ |
-| 2 | `setlocal` | Variable တွေကို ဒီ script ထဲမှာပဲ သက်ရောက်စေဖို့ |
-| 3 | `title ...` | CMD window ရဲ့ ခေါင်းစဉ်ကို ပြောင်းတာ |
-| 5 | `powershell ...` | File ထဲက PowerShell ပိုင်းကို ဖြတ်ယူပြီး run တာ (အောက်မှာ အသေးစိတ်ရှင်းထားပါတယ်) |
-| 7–8 | `echo.` / `pause` | လိုင်းအလွတ်တစ်ကြောင်းထုတ်ပြီး key တစ်ခုနှိပ်တဲ့အထိ စောင့်တာ (window ချက်ချင်း မပိတ်သွားအောင်) |
-| 9 | `exit /b` | CMD ပိုင်းကို ဒီမှာ ရပ်တာ။ ဒါကြောင့် CMD က အောက်က PowerShell code ကို လုံးဝ မဖတ်ပါဘူး |
-
-**Line 5 အသေးစိတ်:**
-
-| အပိုင်း | အဓိပ္ပာယ် |
-|---|---|
-| `-NoProfile` | PowerShell profile ကို မ load ဘဲ မြန်မြန် စတာ |
-| `-ExecutionPolicy Bypass` | Script ကန့်သတ်ချက်ကို ကျော်တာ |
-| `%~f0` | CMD က ဒီ `.cmd` file ကိုယ်တိုင်ရဲ့ full path နဲ့ အစားထိုးပေးတာ |
-| `Get-Content ... -Raw` | File တစ်ခုလုံးကို စာသားတစ်ခုအနေနဲ့ ဖတ်တာ |
-| `IndexOf('#PSCODE#')` | Marker ရှိတဲ့နေရာကို ရှာတာ (**Known Issue** ကို ကြည့်ပါ) |
-| `Substring(...)` | Marker နောက်က စာသားတွေကို ဖြတ်ယူတာ |
-| `Invoke-Expression $code` | ဖြတ်ယူထားတဲ့ စာသားကို PowerShell code အဖြစ် run တာ |
-
-### အပိုင်း ၂ — PowerShell ပိုင်း (`#PSCODE#` နောက်ပိုင်း)
-
-#### Error handling
-
-```powershell
-$ErrorActionPreference = "Stop"
-```
-
-Error တက်ရင် ဆက်မလုပ်ဘဲ ချက်ချင်း ရပ်ပါတယ်။
-
-#### Administrator ဟုတ်မဟုတ် စစ်ခြင်း
-
-```powershell
-$principal = New-Object Security.Principal.WindowsPrincipal(
-    [Security.Principal.WindowsIdentity]::GetCurrent()
-)
-$isAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-```
-
-- လက်ရှိ user ရဲ့ identity ကို ယူပြီး Administrator role ထဲမှာ ပါမပါ စစ်ပါတယ်။
-- Admin မဟုတ်ရင် `[ERROR] Please run as Administrator.` လို့ပြပြီး ရပ်ပါတယ်။
-
-#### WireGuard install ထားမထား စစ်ခြင်း
-
-```powershell
-$wgExe = Join-Path $env:ProgramFiles "WireGuard\wireguard.exe"
-if (-not (Test-Path $wgExe)) { ... exit }
-```
-
-- `$env:ProgramFiles` ဆိုတာ `C:\Program Files` ပါ။
-- `wireguard.exe` မရှိရင် error ပြပြီး ရပ်ပါတယ်။
-
-#### Registry ပြင်ခြင်း (script ရဲ့ အဓိကရည်ရွယ်ချက်)
-
-```powershell
-New-ItemProperty -Path "HKLM:\SOFTWARE\WireGuard" `
-    -Name "LimitedOperatorUI" -PropertyType DWord -Value 1 -Force
-```
-
-- `HKLM:\SOFTWARE\WireGuard` key မရှိရင် အရင် ဖန်တီးပါတယ်။
-- `LimitedOperatorUI = 1` ရှိမှ Admin မဟုတ်တဲ့ user တွေက tunnel ကို **ဖွင့်/ပိတ်** လုပ်လို့ရပါတယ်။ Tunnel config ကိုတော့ ပြင်ခွင့်၊ ဖျက်ခွင့် မရပါဘူး။
-- Line ဆုံးက backtick (`` ` ``) က PowerShell မှာ command ကို နောက်တစ်ကြောင်းကို ဆက်ရေးတဲ့ သင်္ကေတပါ။
-- `| Out-Null` က output ကို မပြအောင် ဖျောက်ထားတာပါ။
-
-#### လက်ရှိ login ဝင်ထားတဲ့ user ကို ရှာခြင်း
-
-```powershell
-$interactiveUser = (Get-CimInstance Win32_ComputerSystem).UserName
-```
-
-Console မှာ login ဝင်ထားတဲ့ user name ကို ပြပါတယ်။ ရှာမတွေ့ရင် warning ပြပါတယ်။
-
-#### Network Configuration Operators group ကို စစ်ကြည့်ခြင်း
-
-```powershell
-$group   = Get-LocalGroup -SID "S-1-5-32-556"
-$members = Get-LocalGroupMember -Group $group.Name
-```
-
-- SID `S-1-5-32-556` က Network Configuration Operators ဆိုတဲ့ built-in group ပါ။ Group name အစား SID နဲ့ ရှာထားလို့ Windows ဘာသာစကား ဘယ်လိုပဲ ဖြစ်ဖြစ် အလုပ်လုပ်ပါတယ်။
-- Group ထဲမှာ ဘယ်သူတွေ ရှိလဲဆိုတာကို **ပြရုံပဲ ပြပါတယ်။ ဘာမှ ပြောင်းလဲမပေးပါဘူး**။
-- `try/catch` က error တက်ရင် script တစ်ခုလုံး မရပ်သွားဘဲ warning ပြရုံပဲ ပြစေပါတယ်။
-
-#### Public Desktop မှာ shortcut ဖန်တီးခြင်း
-
-```powershell
-$publicDesktop = [Environment]::GetFolderPath("CommonDesktopDirectory")
-$ws = New-Object -ComObject WScript.Shell
-$shortcut = $ws.CreateShortcut((Join-Path $publicDesktop "WireGuard.lnk"))
-```
-
-- `CommonDesktopDirectory` ဆိုတာ `C:\Users\Public\Desktop` ပါ။ ဒီနေရာမှာ ထားတဲ့ shortcut ကို user အားလုံး မြင်ရပါတယ်။
-- `WScript.Shell` COM object ကို သုံးပြီး `wireguard.exe` ကို ညွှန်တဲ့ shortcut ကို ဖန်တီးပါတယ်။
-
-#### Registry ကို ပြန်စစ်ခြင်း
-
-`LimitedOperatorUI` value ကို ပြန်ဖတ်ပြီး `1` ဖြစ်နေရင် `[OK]` ပြပါတယ်။ မဟုတ်ရင် `[ERROR]` ပြပါတယ်။
-
-#### ပြီးဆုံးခြင်း
-
-Setting အသက်ဝင်ဖို့ Windows ကို restart လုပ်ဖို့ ဒါမှမဟုတ် sign out ပြီး ပြန် sign in ဝင်ဖို့ ပြောပါတယ်။
-
----
-
-## Output နမူနာ (အောင်မြင်တဲ့အခါ)
+## Output နမူနာ
 
 ```
-======================================
- WireGuard Standard User Configuration
-======================================
-
 [OK] Administrator privilege detected.
-[OK] WireGuard installation detected.
-[OK] LimitedOperatorUI configured.
-[INFO] Interactive user: PC01\user1
-
-Network Configuration Operators:
-  PC01\user1
-
-[INFO] Group membership was not changed.
-[OK] Public Desktop shortcut created.
-[OK] Registry verification successful.
+[INFO] Existing WireGuard found. It will be uninstalled and reinstalled.
+[INFO] Downloading wireguard-amd64-x.x.x.msi ...
+[OK] Installer signature verified (WireGuard LLC).
+[OK] Tunnel configs backed up to: C:\ProgramData\WireGuard-Backup\20261127-101500
+[OK] Old WireGuard uninstalled.
+[OK] WireGuard installed successfully.
+[OK] Tunnel configs restored.
+[INFO] Device join type: Entra ID joined
+[INFO] Logged-on user: AzureAD\UserName (S-1-12-1-...)
+[OK] AzureAD\UserName added to the Administrators group.
 
 ======================================
  Configuration completed.
 ======================================
 
-Please restart Windows or sign out/in.
+[INFO] Windows will restart automatically in 60 seconds.
 ```
 
-## Setting ကို ပြန်ဖျက်နည်း (Rollback)
+## Code ဖွဲ့စည်းပုံ
 
-Admin CMD ကနေ အောက်ပါ command တွေ run ပါ။
+ဒီ file က **CMD + PowerShell hybrid** (file တစ်ခုတည်းထဲမှာ ဘာသာစကား နှစ်မျိုး) ဖြစ်ပါတယ်။
+
+- **CMD ပိုင်း (`#PSCODE#` marker အပေါ်):** Admin ဟုတ်မဟုတ် `fltmc` နဲ့ စစ်ပြီး မဟုတ်ရင် UAC နဲ့ ပြန် run ပါတယ်။ ပြီးရင် file ထဲက PowerShell ပိုင်းကို ဖြတ်ယူပြီး run ပါတယ်။
+- **PowerShell ပိုင်း (`#PSCODE#` marker အောက်):** အပေါ်က "Script က ဘာတွေလုပ်ပေးလဲ" အဆင့်တွေ အားလုံးကို လုပ်ပါတယ်။
+
+## ပြန်ဖျက်နည်း (Rollback)
+
+User ကို Administrators group ထဲက ပြန်ထုတ်ချင်ရင် admin CMD မှာ run ပါ။
 
 ```cmd
-reg delete "HKLM\SOFTWARE\WireGuard" /v LimitedOperatorUI /f
-del "C:\Users\Public\Desktop\WireGuard.lnk"
-net localgroup "Network Configuration Operators" "DOMAIN\username" /delete
+net localgroup Administrators "PCNAME\username" /delete
 ```
+
+Entra ID user ဆိုရင် `"AzureAD\user@yourdomain.com"` ပုံစံ သုံးပါ။ ပြီးရင် user က sign out / sign in ပြန်ဝင်ရပါမယ်။
