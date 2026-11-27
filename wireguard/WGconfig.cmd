@@ -2,7 +2,7 @@
 setlocal
 title WireGuard Standard User Configuration
 
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$raw = Get-Content -LiteralPath '%~f0' -Raw; $marker = '#PSCODE#'; $idx = $raw.IndexOf($marker); if ($idx -lt 0) { exit 1 }; $code = $raw.Substring($idx + $marker.Length); Invoke-Expression $code"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$raw = Get-Content -LiteralPath '%~f0' -Raw; $marker = '#PSCODE#'; $idx = $raw.LastIndexOf($marker); if ($idx -lt 0) { exit 1 }; $code = $raw.Substring($idx + $marker.Length); Invoke-Expression $code"
 
 echo.
 pause
@@ -34,16 +34,76 @@ if (-not $isAdmin) {
 
 Write-Host "[OK] Administrator privilege detected." -ForegroundColor Green
 
-# Check WireGuard installation
+# Check WireGuard installation (auto-install if missing)
 $wgExe = Join-Path $env:ProgramFiles "WireGuard\wireguard.exe"
 
 if (-not (Test-Path $wgExe)) {
-    Write-Host "[ERROR] WireGuard is not installed." -ForegroundColor Red
-    Write-Host "Please install WireGuard for Windows first." -ForegroundColor Yellow
-    exit
-}
+    Write-Host "[INFO] WireGuard is not installed. Installing automatically..." -ForegroundColor Yellow
 
-Write-Host "[OK] WireGuard installation detected." -ForegroundColor Green
+    # Detect CPU architecture
+    $arch = $env:PROCESSOR_ARCHITEW6432
+    if (-not $arch) { $arch = $env:PROCESSOR_ARCHITECTURE }
+    switch ($arch) {
+        "AMD64" { $msiArch = "amd64" }
+        "ARM64" { $msiArch = "arm64" }
+        default { $msiArch = "x86" }
+    }
+
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    $baseUrl = "https://download.wireguard.com/windows-client/"
+
+    # Find latest MSI version from the official download page
+    $msiName = "wireguard-$msiArch-0.5.3.msi"   # fallback version
+    try {
+        $listing = (Invoke-WebRequest -Uri $baseUrl -UseBasicParsing).Content
+        $found = [regex]::Matches($listing, "wireguard-$msiArch-([0-9.]+)\.msi") |
+            Sort-Object { [version]$_.Groups[1].Value } -Descending |
+            Select-Object -First 1
+        if ($found) { $msiName = $found.Value }
+    }
+    catch {
+        Write-Host "[WARNING] Could not read version list. Using fallback: $msiName" -ForegroundColor Yellow
+    }
+
+    $msiPath = Join-Path $env:TEMP $msiName
+
+    try {
+        Write-Host "[INFO] Downloading $msiName ..." -ForegroundColor Cyan
+        Invoke-WebRequest -Uri ($baseUrl + $msiName) -OutFile $msiPath -UseBasicParsing
+    }
+    catch {
+        Write-Host "[ERROR] Download failed: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "Check internet connection, or install WireGuard manually from https://www.wireguard.com/install/" -ForegroundColor Yellow
+        exit
+    }
+
+    # Verify digital signature (must be signed by WireGuard LLC)
+    $sig = Get-AuthenticodeSignature -FilePath $msiPath
+    if ($sig.Status -ne "Valid" -or $sig.SignerCertificate.Subject -notmatch "WireGuard LLC") {
+        Write-Host "[ERROR] Installer signature check failed. Installation aborted." -ForegroundColor Red
+        Remove-Item $msiPath -Force -ErrorAction SilentlyContinue
+        exit
+    }
+    Write-Host "[OK] Installer signature verified (WireGuard LLC)." -ForegroundColor Green
+
+    # Silent install
+    Write-Host "[INFO] Installing WireGuard (silent)..." -ForegroundColor Cyan
+    $proc = Start-Process -FilePath "msiexec.exe" `
+        -ArgumentList "/i `"$msiPath`" /qn /norestart DO_NOT_LAUNCH=1" `
+        -Wait -PassThru
+
+    Remove-Item $msiPath -Force -ErrorAction SilentlyContinue
+
+    if (($proc.ExitCode -ne 0 -and $proc.ExitCode -ne 3010) -or -not (Test-Path $wgExe)) {
+        Write-Host "[ERROR] WireGuard installation failed. (msiexec exit code: $($proc.ExitCode))" -ForegroundColor Red
+        exit
+    }
+
+    Write-Host "[OK] WireGuard installed successfully." -ForegroundColor Green
+}
+else {
+    Write-Host "[OK] WireGuard installation detected." -ForegroundColor Green
+}
 
 # Configure Registry
 $regPath = "HKLM:\SOFTWARE\WireGuard"
